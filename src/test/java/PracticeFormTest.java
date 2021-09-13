@@ -7,16 +7,17 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class PracticeFormTest {
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.startMaximized = true;
-    }
+public class PracticeFormTest extends TestBase{
+
+
+
     @Test
     void fillFormTest(){
-        open("https://demoqa.com/automation-practice-form");
-        $("#firstName").setValue("Sem");
-        $("#lastName").setValue("Dow");
+        open("/automation-practice-form");
+
+
+        $("#firstName").setValue(TestData.firstName);
+        $("#lastName").setValue(TestData.lastName);
         $("#userEmail").setValue("dow@wu.rt");
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("8002002020");
@@ -41,8 +42,10 @@ public class PracticeFormTest {
         $("#submit").click();
 
         $(".modal-title").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Sem Dow"), text("dow@wu.rt"),text("28 March,2000"),text("Arts"),
-                text("Music"),text("p002.jpg"),text("Street34"),text("NCR Delhi"));
+        $(".table-responsive").shouldHave(text(TestData.firstName + " " + TestData.lastName),
+                text("dow@wu.rt"),text("28 March,2000"),text("Arts"),
+                text("Music"),text("p002.jpg"),text("Street34"),
+                text("NCR Delhi"));
     }
 
 
